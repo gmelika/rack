@@ -11,9 +11,7 @@ export STACK_NAME=convox-${CIRCLE_BUILD_NUM}
 # so we reuse
 wait_for_app_state() {
 
-state=$1
-while convox apps info --app $APP_NAME | grep -i $state; do
-  echo "app $state..."
+while convox apps info --app $APP_NAME | grep -i $1; do
   sleep 20
 done
 
@@ -36,7 +34,6 @@ wait_for_app_state updating
 
 url=http://$(convox apps info --app httpd-${CIRCLE_BUILD_NUM} | egrep -o "${EXAMPLE_NAME}*.amazonaws.com")
 while ! curl -m2 $url; do
-  echo "waiting for the ELB..."
   sleep 10
 done
 
