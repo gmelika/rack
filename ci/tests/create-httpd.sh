@@ -24,7 +24,7 @@ while convox apps info --app $APP_NAME | grep -i updating; do
   sleep 20
 done
 
-url=http://$(convox apps info --app httpd-${CIRCLE_BUILD_NUM} | egrep -o 'httpd.*.amazonaws.com'):3000
+url=http://$(convox apps info --app ${APP_NAME} | egrep -o 'httpd.*.amazonaws.com'):3000
 while ! curl -m2 $url; do
   sleep 10
 done
